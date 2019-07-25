@@ -1,0 +1,78 @@
+version: '3.7'
+services:
+  jenkins:
+    build: ./jenkins
+    container_name: jenkins
+    user: root
+    volumes:
+      - jenkins-log:/var/log/jenkins
+      - jenkins-data:/var/jenkins_home
+      - ./jenkins/downloads:/var/jenkins_home/downloads
+      - /var/run/docker.sock:/var/run/docker.sock
+    secrets:
+      - jenkins_admin_username
+      - jenkins_admin_password
+    environment:
+      - VIRTUAL_HOST=jenkins.mthmmy.tk
+      - VIRTUAL_PORT=8080
+      - LETSENCRYPT_HOST=jenkins.mthmmy.tk
+      - LETSENCRYPT_EMAIL=apotwohd@gmail.com
+      - SONARQUBE_HOST=127.0.0.1:9000
+    networks:
+      - janus-net
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - janus-net
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - DEFAULT_HOST=mthmmy.tk
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - dhparam:/etc/nginx/dhparam
+      - certs:/etc/nginx/certs:ro
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-proxy-le
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - dhparam:/etc/nginx/dhparam
+      - certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    networks:
+      - janus-net
+  sonarqube:
+    image: sonarqube
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    networks:
+      - janus-net
+    expose:
+      - "9000"
+secrets:
+  jenkins_admin_username:
+    file: ./jenkins/user
+  jenkins_admin_password:
+    file: ./jenkins/pass
+volumes:
+  jenkins-data:
+  jenkins-log:
+  conf:
+  vhost:
+  html:
+  dhparam:
+  certs:
+networks:
+  janus-net:
+    driver: bridge
