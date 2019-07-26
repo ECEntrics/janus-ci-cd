@@ -1,78 +1,136 @@
 version: '3.7'
 services:
+  # Nginx reverse proxy container
+  # Reference:
+  # https://github.com/jwilder/nginx-proxy
+  nginx-proxy: # TODO: maybe split this to the two underlying images?
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    restart: always
+    environment:
+      - DEFAULT_HOST=mthmmy.tk
+    labels:
+        com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+    logging:
+      options:
+        max-size: '4m'
+        max-file: '10'
+    networks:
+      - janus-net
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./volumes/nginx/conf:/etc/nginx/conf.d
+      - ./volumes/nginx/vhost:/etc/nginx/vhost.d
+      - ./volumes/nginx/html:/usr/share/nginx/html
+      - ./volumes/nginx/dhparam:/etc/nginx/dhparam
+      - ./volumes/nginx/certs:/etc/nginx/certs:ro
+
+  # Letsencrypt automated creation, renewal and use of Let's Encrypt certificates
+  # Reference:
+  # https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-proxy-le
+    restart: always
+    depends_on:
+      - nginx-proxy
+    logging:
+      options:
+        max-size: '4m'
+        max-file: '10'
+    networks:
+      - janus-net
+    volumes:
+      - ./volumes/nginx/conf:/etc/nginx/conf.d
+      - ./volumes/nginx/vhost:/etc/nginx/vhost.d
+      - ./volumes/nginx/html:/usr/share/nginx/html
+      - ./volumes/nginx/dhparam:/etc/nginx/dhparam
+      - ./volumes/nginx/certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  # Jenkins automation server, image bundled with Blue Ocean
+  # Reference:
+  # https://jenkins.io/doc/book/blueocean/
   jenkins:
     build: ./jenkins
     container_name: jenkins
+    restart: always
     user: root
-    volumes:
-      - jenkins-log:/var/log/jenkins
-      - jenkins-data:/var/jenkins_home
-      - ./jenkins/downloads:/var/jenkins_home/downloads
-      - /var/run/docker.sock:/var/run/docker.sock
-    secrets:
-      - jenkins_admin_username
-      - jenkins_admin_password
     environment:
       - VIRTUAL_HOST=jenkins.mthmmy.tk
       - VIRTUAL_PORT=8080
       - LETSENCRYPT_HOST=jenkins.mthmmy.tk
       - LETSENCRYPT_EMAIL=apotwohd@gmail.com
       - SONARQUBE_HOST=127.0.0.1:9000
-    networks:
-      - janus-net
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    container_name: nginx-proxy
-    ports:
-      - "80:80"
-      - "443:443"
+    secrets:
+      - jenkins_admin_username
+      - jenkins_admin_password
     networks:
       - janus-net
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    environment:
-      - DEFAULT_HOST=mthmmy.tk
-      - conf:/etc/nginx/conf.d
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      - dhparam:/etc/nginx/dhparam
-      - certs:/etc/nginx/certs:ro
-  letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    container_name: nginx-proxy-le
-    volumes:
-      - conf:/etc/nginx/conf.d
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      - dhparam:/etc/nginx/dhparam
-      - certs:/etc/nginx/certs:rw
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    environment:
-      - NGINX_PROXY_CONTAINER=nginx-proxy
-    networks:
-      - janus-net
+      - ./volumes/jenkins/log:/var/log/jenkins
+      - jenkins-data:/var/jenkins_home
+      - ./jenkins/downloads:/var/jenkins_home/downloads
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  # Sonarqube continuous inspection of code quality
+  # References:
+  # https://docs.sonarqube.org/latest/
+  # https://github.com/SonarSource/docker-sonarqube/tree/master/recipes
   sonarqube:
     image: sonarqube
     container_name: sonarqube
-    ports:
-      - "9000:9000"
+    restart: always
+    environment:
+      - sonar.jdbc.username=sonar
+      - sonar.jdbc.password=sonar
+      - sonar.jdbc.url=jdbc:postgresql://sonar-db:5432/sonar
+      - VIRTUAL_HOST=sonar.mthmmy.tk
+      - VIRTUAL_PORT=9000
+      - LETSENCRYPT_HOST=sonar.mthmmy.tk
+      - LETSENCRYPT_EMAIL=apotwohd@gmail.com
     networks:
       - janus-net
-    expose:
-      - "9000"
-secrets:
+      - sonar-net
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+  sonar-db:
+    image: postgres
+    container_name: sonar-db
+    restart: always
+    environment: # TODO: figure out another way to pass the username and password
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+    networks:
+      - sonar-net
+
+# Networks in use
+# TODO: maybe add/split to separate networks
+networks:
+  janus-net:
+    driver: bridge
+  sonar-net:
+    driver: bridge
+# Secrets in use
+secrets: # TODO: figure out a better way to do this
   jenkins_admin_username:
     file: ./jenkins/user
   jenkins_admin_password:
     file: ./jenkins/pass
 volumes:
   jenkins-data:
-  jenkins-log:
-  conf:
-  vhost:
-  html:
-  dhparam:
-  certs:
-networks:
-  janus-net:
-    driver: bridge
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
+  postgresql:
+  postgresql_data:

@@ -8,16 +8,15 @@ RUN mkdir /var/cache/jenkins
 RUN chown -R jenkins:jenkins /var/log/jenkins
 RUN chown -R jenkins:jenkins /var/cache/jenkins
 
-# Normally we should install docker inside container, but it seems to be working
-# without it.
+# Installs docker inside container
 # ATENTION: version MUST be the same as host's docker installation!
 ARG VERSION=18.09
 RUN curl -fsSL https://get.docker.com -o get-docker.sh | sh
 
 USER jenkins
 
-# Security configuration script
-COPY security.groovy /var/jenkins_home/init.groovy.d/security.groovy
+# Security configuration scripts
+COPY configuration/* /var/jenkins_home/init.groovy.d/security.groovy
 
 # Automatically installs plugins
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
@@ -29,5 +28,4 @@ COPY groovy/* /usr/share/jenkins/ref/init.groovy.d/
 # Sets defaults
 # Gets rid of admin password setup
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false -Xmx8192m"
-
 ENV JENKINS_OPTS="--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log --webroot=/var/cache/jenkins/war"
