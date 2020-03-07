@@ -16,7 +16,7 @@ RUN curl -fsSL https://get.docker.com -o get-docker.sh | sh
 USER jenkins
 
 # Security configuration scripts
-COPY configuration/* /var/jenkins_home/init.groovy.d/security.groovy
+COPY configuration/* /var/jenkins_home/init.groovy.d/
 
 # Automatically installs plugins
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt

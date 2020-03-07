@@ -10,3 +10,8 @@ To get the administrator password created use the command:
 ```bash
 docker exec jenkins_master_1 cat /var/jenkins_home/secrets/initialAdminPassword
 ```
+
+Remove **all** images:
+```bash
+docker images -q | xargs docker rmi -f
+```

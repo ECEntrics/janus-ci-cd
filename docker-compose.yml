@@ -59,12 +59,8 @@ services:
     container_name: jenkins
     restart: always
     user: root
-    environment:
-      - VIRTUAL_HOST=jenkins.mthmmy.tk
-      - VIRTUAL_PORT=8080
-      - LETSENCRYPT_HOST=jenkins.mthmmy.tk
-      - LETSENCRYPT_EMAIL=apotwohd@gmail.com
-      - SONARQUBE_HOST=127.0.0.1:9000
+    env_file:
+     - ./env/jenkins.env
     secrets:
       - jenkins_admin_username
       - jenkins_admin_password
@@ -84,14 +80,8 @@ services:
     image: sonarqube
     container_name: sonarqube
     restart: always
-    environment:
-      - sonar.jdbc.username=sonar
-      - sonar.jdbc.password=sonar
-      - sonar.jdbc.url=jdbc:postgresql://sonar-db:5432/sonar
-      - VIRTUAL_HOST=sonar.mthmmy.tk
-      - VIRTUAL_PORT=9000
-      - LETSENCRYPT_HOST=sonar.mthmmy.tk
-      - LETSENCRYPT_EMAIL=apotwohd@gmail.com
+    env_file:
+      - ./env/sonar.env
     networks:
       - janus-net
       - sonar-net
@@ -104,7 +94,7 @@ services:
     image: postgres
     container_name: sonar-db
     restart: always
-    environment: # TODO: figure out another way to pass the username and password
+    environment: # TODO: figure out another way to pass the username and password?
       - POSTGRES_USER=sonar
       - POSTGRES_PASSWORD=sonar
     volumes:
@@ -121,7 +111,7 @@ networks:
   sonar-net:
     driver: bridge
 # Secrets in use
-secrets: # TODO: figure out a better way to do this
+secrets: # TODO: figure out a better way to do this?
   jenkins_admin_username:
     file: ./jenkins/user
   jenkins_admin_password:
