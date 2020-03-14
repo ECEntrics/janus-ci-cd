@@ -19,11 +19,11 @@ USER jenkins
 COPY configuration/* /var/jenkins_home/init.groovy.d/
 
 # Automatically installs plugins
-COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+# COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+# RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
 # Adds scripts for tool installation
-COPY groovy/* /usr/share/jenkins/ref/init.groovy.d/
+# COPY groovy/* /usr/share/jenkins/ref/init.groovy.d/
 
 # Sets defaults
 # Gets rid of admin password setup

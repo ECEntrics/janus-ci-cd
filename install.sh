@@ -34,11 +34,3 @@ fi
 # Installs docker using the get.docker.com method
 VERSION="18.09"
 curl -fsSL https://get.docker.com -o get-docker.sh | sh
-
-# Bellow settings are needed for Sonarqube to run on linux.
-# These settings are valid only for the session and are lost after reboot
-# TODO: make the changes permanent
-sysctl -w vm.max_map_count=262144
-sysctl -w fs.file-max=65536
-ulimit -n 65536
-ulimit -u 4096

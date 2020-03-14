@@ -16,7 +16,8 @@ services:
         max-size: '4m'
         max-file: '10'
     networks:
-      - janus-net
+      - jenkins-net
+      - apella-net
     ports:
       - "80:80"
       - "443:443"
@@ -42,7 +43,8 @@ services:
         max-size: '4m'
         max-file: '10'
     networks:
-      - janus-net
+      - jenkins-net
+      - apella-net
     volumes:
       - ./volumes/nginx/conf:/etc/nginx/conf.d
       - ./volumes/nginx/vhost:/etc/nginx/vhost.d
@@ -65,50 +67,19 @@ services:
       - jenkins_admin_username
       - jenkins_admin_password
     networks:
-      - janus-net
+      - jenkins-net
     volumes:
       - ./volumes/jenkins/log:/var/log/jenkins
       - jenkins-data:/var/jenkins_home
       - ./jenkins/downloads:/var/jenkins_home/downloads
       - /var/run/docker.sock:/var/run/docker.sock
 
-  # Sonarqube continuous inspection of code quality
-  # References:
-  # https://docs.sonarqube.org/latest/
-  # https://github.com/SonarSource/docker-sonarqube/tree/master/recipes
-  sonarqube:
-    image: sonarqube
-    container_name: sonarqube
-    restart: always
-    env_file:
-      - ./env/sonar.env
-    networks:
-      - janus-net
-      - sonar-net
-    volumes:
-      - sonarqube_conf:/opt/sonarqube/conf
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_extensions:/opt/sonarqube/extensions
-      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
-  sonar-db:
-    image: postgres
-    container_name: sonar-db
-    restart: always
-    environment: # TODO: figure out another way to pass the username and password?
-      - POSTGRES_USER=sonar
-      - POSTGRES_PASSWORD=sonar
-    volumes:
-      - postgresql:/var/lib/postgresql
-      - postgresql_data:/var/lib/postgresql/data
-    networks:
-      - sonar-net
-
 # Networks in use
 # TODO: maybe add/split to separate networks
 networks:
-  janus-net:
+  jenkins-net:
     driver: bridge
-  sonar-net:
+  apella-net:
     driver: bridge
 # Secrets in use
 secrets: # TODO: figure out a better way to do this?
@@ -118,9 +89,3 @@ secrets: # TODO: figure out a better way to do this?
     file: ./jenkins/pass
 volumes:
   jenkins-data:
-  sonarqube_conf:
-  sonarqube_data:
-  sonarqube_extensions:
-  sonarqube_bundled-plugins:
-  postgresql:
-  postgresql_data:
