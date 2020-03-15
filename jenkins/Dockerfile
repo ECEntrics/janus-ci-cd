@@ -1,4 +1,4 @@
-FROM jenkinsci/blueocean
+FROM jenkins/jenkins:lts
 LABEL maintainer="apotwohd@gmail.com"
 
 # Preps Jenkins directories
@@ -10,8 +10,8 @@ RUN chown -R jenkins:jenkins /var/cache/jenkins
 
 # Installs docker inside container
 # ATENTION: version MUST be the same as host's docker installation!
-ARG VERSION=18.09
-RUN curl -fsSL https://get.docker.com -o get-docker.sh | sh
+# ARG VERSION=18.09
+# RUN curl -fsSL https://get.docker.com -o get-docker.sh | sh
 
 # Generates an SSH key-pair to use with Gitlab
 # TODO: replace placeholder email (note that this is not really necessary)
@@ -29,6 +29,9 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
 # Adds scripts for tool installation
 COPY groovy/* /usr/share/jenkins/ref/init.groovy.d/
+
+# Adds job configurations for apella
+COPY jobs/* /var/jenkins_home/jobs/
 
 # Sets defaults
 # Gets rid of admin password setup

@@ -24,12 +24,10 @@ blueocean-rest
 blueocean-rest-impl
 blueocean-web
 bouncycastle-api
-bouncycastle-api.bak
 branch-api
 cloudbees-bitbucket-branch-source
 cloudbees-folder
 command-launcher
-command-launcher.bak
 config-file-provider
 credentials
 credentials-binding
@@ -51,7 +49,6 @@ handy-uri-templates-2-api
 htmlpublisher
 jackson2-api
 jdk-tool
-jdk-tool.bak
 jenkins-design-language
 jira
 jquery-detached
