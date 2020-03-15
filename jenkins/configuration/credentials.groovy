@@ -2,7 +2,6 @@
 // https://gist.github.com/hayderimran7/d6ab8a6a770cb970349e
 // https://gist.github.com/ivan-pinatti/de063b610d1bdf2da229c7874968f4d9
 // https://support.cloudbees.com/hc/en-us/articles/217708168-create-credentials-from-groovy
-
 import jenkins.model.Jenkins
 import com.cloudbees.jenkins.plugins.sshcredentials.impl.*
 import com.cloudbees.plugins.credentials.*
@@ -22,7 +21,7 @@ def gitlabSSHKeyParameters = [
   description:  'Gitlab SSH Key',
   id:           'gitlab-ssh-key',
   secret:       '',
-  userName:     'jenkins',
+  userName:     'git',
   key:          new BasicSSHUserPrivateKey.DirectEntryPrivateKeySource(privateKeyString)
 ]
 

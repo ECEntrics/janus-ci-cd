@@ -30,12 +30,15 @@ cloudbees-bitbucket-branch-source
 cloudbees-folder
 command-launcher
 command-launcher.bak
+config-file-provider
 credentials
 credentials-binding
 display-url-api
 docker-commons
 docker-workflow
 durable-task
+envinject
+envinject-api
 favorite
 git
 git-client
@@ -58,6 +61,7 @@ mailer
 matrix-auth
 matrix-project
 mercurial
+nodejs
 pipeline-build-step
 pipeline-graph-analysis
 pipeline-input-step
