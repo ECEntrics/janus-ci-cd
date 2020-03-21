@@ -1,17 +1,17 @@
 FROM jenkins/jenkins:lts
 LABEL maintainer="apotwohd@gmail.com"
 
-# Preps Jenkins directories
 USER root
+
+# Preps Jenkins directories
 RUN mkdir /var/log/jenkins
 RUN mkdir /var/cache/jenkins
 RUN chown -R jenkins:jenkins /var/log/jenkins
 RUN chown -R jenkins:jenkins /var/cache/jenkins
 
-# Installs docker inside container
-# ATENTION: version MUST be the same as host's docker installation!
-# ARG VERSION=18.09
-# RUN curl -fsSL https://get.docker.com -o get-docker.sh | sh
+# Installs tools needed when installing npm packages
+RUN apt update
+RUN apt install -y build-essential
 
 # Generates an SSH key-pair to use with Gitlab
 # TODO: replace placeholder email (note that this is not really necessary)
