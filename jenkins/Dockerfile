@@ -31,7 +31,7 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 COPY groovy/* /usr/share/jenkins/ref/init.groovy.d/
 
 # Adds job configurations for apella
-COPY jobs/* /var/jenkins_home/jobs/
+COPY jobs/. /var/jenkins_home/jobs/
 
 # Sets defaults
 # Gets rid of admin password setup
