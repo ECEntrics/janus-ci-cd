@@ -9,6 +9,11 @@ RUN mkdir /var/cache/jenkins
 RUN chown -R jenkins:jenkins /var/log/jenkins
 RUN chown -R jenkins:jenkins /var/cache/jenkins
 
+# Installs docker inside container
+# ATENTION: version MUST be the same as host's docker installation!
+ARG VERSION=$HOST_DOCKER_VERSION
+RUN curl -fsSL https://get.docker.com -o get-docker.sh | sh
+
 # Installs tools needed when installing npm packages
 RUN apt update
 RUN apt install -y build-essential

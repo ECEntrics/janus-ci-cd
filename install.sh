@@ -32,5 +32,6 @@ if [[ "$SHOULD_EXIT" = "1" ]]; then
 fi
 
 # Installs docker using the get.docker.com method
-VERSION="18.09"
+HOST_DOCKER_VERSION="18.09"
+VERSION=$HOST_DOCKER_VERSION
 curl -fsSL https://get.docker.com -o get-docker.sh | sh
