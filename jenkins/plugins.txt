@@ -69,6 +69,7 @@ pipeline-model-definition
 pipeline-model-extensions
 pipeline-stage-step
 pipeline-stage-tags-metadata
+pipeline-utility-steps
 plain-credentials
 pubsub-light
 scm-api
