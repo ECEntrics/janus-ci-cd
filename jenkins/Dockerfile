@@ -9,24 +9,23 @@ RUN mkdir /var/cache/jenkins
 RUN chown -R jenkins:jenkins /var/log/jenkins
 RUN chown -R jenkins:jenkins /var/cache/jenkins
 
-# Installs docker inside container
-# ATENTION: version MUST be the same as host's docker installation!
-ARG HOST_DOCKER_VERSION
-RUN apt update && apt install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-RUN sudo add-apt-repository \
-       "deb [arch=amd64] https://download.docker.com/linux/debian \
-       $(lsb_release -cs) \
-       stable"
-RUN apt update && apt install "docker-ce=$HOST_DOCKER_VERSION" "docker-ce-cli=$HOST_DOCKER_VERSION"
-
-# Installs tools needed when installing npm packages
-RUN apt install -y build-essential
+# Installs docker inside image
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg-agent \
+        software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | apt-key add - && \
+    add-apt-repository \
+        "deb [arch=amd64] https://download.docker.com/linux/debian \
+        $(lsb_release -cs) \
+        stable" && \
+   apt-get update && \
+   apt-get install -y --no-install-recommends docker-ce && \
+   apt-get clean && \
+   usermod -aG docker jenkins
 
 # Generates an SSH key-pair to use with Gitlab
 # TODO: replace placeholder email (note that this is not really necessary)
