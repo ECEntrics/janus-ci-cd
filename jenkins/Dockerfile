@@ -12,11 +12,20 @@ RUN chown -R jenkins:jenkins /var/cache/jenkins
 # Installs docker inside container
 # ATENTION: version MUST be the same as host's docker installation!
 ARG HOST_DOCKER_VERSION
-ENV VERSION=$HOST_DOCKER_VERSION
-RUN curl -fsSL https://get.docker.com -o get-docker.sh | sh
+RUN apt update && apt install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+RUN sudo add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/debian \
+       $(lsb_release -cs) \
+       stable"
+RUN apt update && apt install "docker-ce=$HOST_DOCKER_VERSION" "docker-ce-cli=$HOST_DOCKER_VERSION"
 
 # Installs tools needed when installing npm packages
-RUN apt update
 RUN apt install -y build-essential
 
 # Generates an SSH key-pair to use with Gitlab
@@ -32,9 +41,6 @@ COPY configuration/* /var/jenkins_home/init.groovy.d/
 # Automatically installs plugins
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
-
-# Adds scripts for tool installation
-COPY groovy/* /usr/share/jenkins/ref/init.groovy.d/
 
 # Adds job configurations for apella
 COPY jobs/. /var/jenkins_home/jobs/
