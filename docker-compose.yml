@@ -3,7 +3,7 @@ services:
   # Nginx reverse proxy container
   # Reference:
   # https://github.com/jwilder/nginx-proxy
-  nginx-proxy: # TODO: maybe split this to the two underlying images?
+  nginx-proxy:
     image: jwilder/nginx-proxy
     container_name: nginx-proxy
     restart: always
@@ -57,7 +57,10 @@ services:
   # Reference:
   # https://jenkins.io/doc/book/blueocean/
   jenkins:
-    build: ./jenkins
+    build:
+      dockerfile: ./jenkins
+      args:
+        HOST_DOCKER_VERSION: ${HOST_DOCKER_VERSION:-19.03.5}
     container_name: jenkins
     restart: always
     user: root
@@ -82,7 +85,7 @@ networks:
   apella-net:
     driver: bridge
 # Secrets in use
-secrets: # TODO: figure out a better way to do this?
+secrets:
   jenkins_admin_username:
     file: ./jenkins/user
   jenkins_admin_password:
