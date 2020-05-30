@@ -68,6 +68,8 @@ services:
     secrets:
       - jenkins_admin_username
       - jenkins_admin_password
+      - jenkins_dockerhub_username
+      - jenkins_dockerhub_password
     networks:
       - jenkins-net
     volumes:
