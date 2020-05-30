@@ -14,12 +14,12 @@ import jenkins.security.s2m.AdminWhitelistRule
 def instance = Jenkins.getInstance()
 
 // Automate Admin Setup & Plugin Installs
-def user = new File("/run/secrets/jenkins_admin_username").text.trim()
-def pass = new File("/run/secrets/jenkins_admin_password").text.trim()
+def adminUser = new File("/run/secrets/jenkins_admin_username").text.trim()
+def adminPassword = new File("/run/secrets/jenkins_admin_password").text.trim()
 
 // Create Admin User
 def hudsonRealm = new HudsonPrivateSecurityRealm(false)
-hudsonRealm.createAccount(user, pass)
+hudsonRealm.createAccount(adminUser, adminPassword)
 instance.setSecurityRealm(hudsonRealm)
 
 // Set Auth to Full Control Once Logged In
