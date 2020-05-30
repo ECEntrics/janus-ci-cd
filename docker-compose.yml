@@ -90,7 +90,7 @@ secrets:
   jenkins_admin_username:
     file: ./jenkins/secrets/adminUsername
   jenkins_admin_password:
-    file: ./jenkins/secrets/adminPass
+    file: ./jenkins/secrets/adminPassword
   jenkins_dockerhub_username:
     file: ./jenkins/secrets/dockerhubUsername
   jenkins_dockerhub_password:

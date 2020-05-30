@@ -21,7 +21,7 @@ make run
 During the Docker image build, a key-pair is created for usage with Gitlab. Get the public ssh key using:
 
 ```sh
-./utility-scripts/printJenkinsGitlabSSHPublicKey.sh
+make print-ssh-key
 ```
 
 Then, on Gitlab, add the public key to the deploy keys of the project.
