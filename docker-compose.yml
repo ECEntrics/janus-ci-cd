@@ -91,5 +91,9 @@ secrets:
     file: ./jenkins/secrets/adminUsername
   jenkins_admin_password:
     file: ./jenkins/secrets/adminPass
+  jenkins_dockerhub_username:
+    file: ./jenkins/secrets/dockerhubUsername
+  jenkins_dockerhub_password:
+    file: ./jenkins/secrets/dockerhubPassword
 volumes:
   jenkins-data:
