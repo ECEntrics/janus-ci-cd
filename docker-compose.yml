@@ -60,8 +60,6 @@ services:
     build:
       dockerfile: ./Dockerfile
       context: ./jenkins
-      args:
-        HOST_DOCKER_VERSION: ${HOST_DOCKER_VERSION:-19.03.5}
     container_name: jenkins
     restart: always
     user: root
