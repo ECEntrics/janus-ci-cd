@@ -88,8 +88,8 @@ networks:
 # Secrets in use
 secrets:
   jenkins_admin_username:
-    file: ./jenkins/user
+    file: ./jenkins/secrets/user
   jenkins_admin_password:
-    file: ./jenkins/pass
+    file: ./jenkins/secrets/pass
 volumes:
   jenkins-data:
