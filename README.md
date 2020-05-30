@@ -11,8 +11,12 @@ Only needs a working installation of Docker.
 ## Installation
 
 The credentials of the default admin user created are passed to Jenkins using docker secrets. The files containing the
-username and password to be used can be found at the paths `./jenkins/secrets/user` and `./jenkins/secrets/pass`
-respectively. Edit the files to change the default username and password.
+username and password to be used can be found at the paths `./jenkins/secrets/adminUsername` and
+`./jenkins/secrets/adminPassword` respectively. Edit the files to change the default username and password.
+
+The image also sets up a credential for use with docker when pushing images to docker hub. The username and password
+used can be found at the paths `./jenkins/secrets/dockerhubUsername` and `./jenkins/secrets/dockerhubPassword`
+respectively.
 
 Then run:
 
@@ -35,6 +39,8 @@ under Global Credentials.
 Lastly a Webhook must be added to Gitlab, pointing to the Jenkins project. On Gitlab, navigate to the Webhooks menu in
 the Settings of the project and add a new webhook pointing to
 `https://jenkins.apella.tk/project/staging-apella-multibranch-pipeline`.
+
+To get the git branches and Jenkinsfiles from each branch initiate a `Multibranch Pipeline Scan`.
 
 In the `SETUP` you can find more details about the setup process, the credentials, plugins and other configuration that
 is done automatically and how to change these.
