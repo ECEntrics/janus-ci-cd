@@ -47,7 +47,7 @@ is done automatically and how to change these.
 
 ## Contact
 
-Apostolof – apotwohd@gmail.com
+Apostolof – apotwohd@gmail.com  
 Ezerous - ezerous@gmail.com
 
 Distributed under the MIT license. See ``LICENSE`` for more information.
