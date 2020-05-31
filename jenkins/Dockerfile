@@ -29,9 +29,8 @@ RUN apt-get update && \
    usermod -aG docker jenkins
 
 # Generates an SSH key-pair to use with Gitlab
-# TODO: replace placeholder email (note that this is not really necessary)
 RUN mkdir -p "/home/jenkins/.ssh"
-RUN ssh-keygen -t ed25519 -C "example@email.com" -N "" -f "/home/jenkins/.ssh/gitlab-ssh"
+RUN ssh-keygen -t ed25519 -C "ecentricsgr@gmail.com" -N "" -f "/home/jenkins/.ssh/gitlab-ssh"
 
 USER jenkins
 
