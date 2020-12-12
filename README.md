@@ -1,8 +1,8 @@
 # Janus
-> A Dockerized Jenkins CI-CD system for Apella
+> A Dockerized Jenkins CI-CD system for Concordia
 
 Janus is a Docker image that contains an instance of Jenkins with all the necessary configuration built into it for
-handling the CI-CD of Apella.
+handling the CI-CD of Concordia.
 
 ## Prerequisites
 
@@ -38,7 +38,7 @@ under Global Credentials.
 
 Lastly a Webhook must be added to Gitlab, pointing to the Jenkins project. On Gitlab, navigate to the Webhooks menu in
 the Settings of the project and add a new webhook pointing to
-`https://jenkins.apella.tk/project/staging-apella-multibranch-pipeline`.
+`https://jenkins.concordia.tk/project/staging-concordia-multibranch-pipeline`.
 
 To get the git branches and Jenkinsfiles from each branch initiate a `Multibranch Pipeline Scan`.
 

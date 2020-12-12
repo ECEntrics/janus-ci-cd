@@ -41,7 +41,7 @@ COPY configuration/* /var/jenkins_home/init.groovy.d/
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
-# Adds job configurations for apella
+# Adds job configurations for concordia
 COPY jobs/. /var/jenkins_home/jobs/
 
 # Sets defaults

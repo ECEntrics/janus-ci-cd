@@ -16,8 +16,8 @@ services:
         max-size: '4m'
         max-file: '10'
     networks:
-      - jenkins-net
-      - apella-net
+      - jenkins_net
+      - concordia_net
     ports:
       - "80:80"
       - "443:443"
@@ -43,8 +43,8 @@ services:
         max-size: '4m'
         max-file: '10'
     networks:
-      - jenkins-net
-      - apella-net
+      - jenkins_net
+      - concordia_net
     volumes:
       - ./volumes/nginx/conf:/etc/nginx/conf.d
       - ./volumes/nginx/vhost:/etc/nginx/vhost.d
@@ -71,7 +71,7 @@ services:
       - jenkins_dockerhub_username
       - jenkins_dockerhub_password
     networks:
-      - jenkins-net
+      - jenkins_net
     volumes:
       - ./volumes/jenkins/log:/var/log/jenkins
       - jenkins-data:/var/jenkins_home
@@ -81,9 +81,9 @@ services:
 # Networks in use
 # TODO: maybe add/split to separate networks
 networks:
-  jenkins-net:
+  jenkins_net:
     driver: bridge
-  apella-net:
+  concordia_net:
     driver: bridge
 # Secrets in use
 secrets:

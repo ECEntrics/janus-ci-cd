@@ -11,8 +11,8 @@ def dockerhubUser = new File("/run/secrets/jenkins_dockerhub_username").text.tri
 def dockerhubPassword = new File("/run/secrets/jenkins_dockerhub_password").text.trim()
 
 def jenkinsKeyUsernameWithPasswordParameters = [
-        description: 'Apella docker-hub',
-        id         : 'docker-hub-apella',
+        description: 'Concordia docker-hub',
+        id         : 'docker-hub-concordia',
         password   : dockerhubPassword,
         userName   : dockerhubUser
 ]

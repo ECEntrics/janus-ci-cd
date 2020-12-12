@@ -1,6 +1,6 @@
 # Installation
 
-Welcome to **Janus** installation guide (the Jenkins based CI-CD systyem for Apella).
+Welcome to **Janus** installation guide (the Jenkins based CI-CD systyem for Concordia).
 
 **This installation guide is intended for computers using Debian based, Linux distributions!**
 
@@ -11,7 +11,7 @@ Although the guide is pretty detailed don't hesitate to open an issue or contact
 
 ## Introduction
 
-Janus is a docker image based on the official Jenkins image. Its purpose is to be used as a CI-CD system for Apella,
+Janus is a docker image based on the official Jenkins image. Its purpose is to be used as a CI-CD system for Concordia,
 but can be easily modified for use with any project, especially decentralized apps using the truffle suite.
 
 ## Prerequisites
@@ -68,7 +68,7 @@ for convenience:
 
 ### Jobs added
 
-A number of jobs (specific to Apella) are automatically configured. The config XML files are located in the directory
+A number of jobs (specific to Concordia) are automatically configured. The config XML files are located in the directory
 `jenkins/jobs`.
 
 ## Uninstalling
