@@ -9,7 +9,7 @@ stop-clean-data:
 copy-jobs:
 	@docker cp jenkins:/var/jenkins_home/jobs/. ./jenkins/jobs
 update-plugins:
-	@docker exec -it jenkins ls /var/jenkins_home/plugins/ | grep -v jpi > ./jenkins/plugins.txt
+	@docker exec -it jenkins ls -1 /var/jenkins_home/plugins/ | grep -v jpi > ./jenkins/plugins.txt
 print-ssh-key:
 	@docker exec -it jenkins cat "/home/jenkins/.ssh/gitlab-ssh.pub"
 clean-images:

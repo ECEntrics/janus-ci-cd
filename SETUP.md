@@ -16,7 +16,7 @@ but can be easily modified for use with any project, especially decentralized ap
 
 ## Prerequisites
 
-To execute the commands bellow you should have a working docker installation on the machine you intend to use.
+To execute the commands below you should have a working docker installation on the machine you intend to use.
 
 The only other prerequisite is that ports 80 and 443 should be free.
 

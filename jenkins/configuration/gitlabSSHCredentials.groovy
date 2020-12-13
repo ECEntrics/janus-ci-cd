@@ -1,4 +1,4 @@
-// This script is based on the sources listed bellow:
+// This script is based on the sources listed below:
 // https://gist.github.com/hayderimran7/d6ab8a6a770cb970349e
 // https://gist.github.com/ivan-pinatti/de063b610d1bdf2da229c7874968f4d9
 // https://support.cloudbees.com/hc/en-us/articles/217708168-create-credentials-from-groovy

@@ -1,4 +1,4 @@
-// This script is based on the source bellow:
+// This script is based on the source below:
 // https://gist.github.com/ivan-pinatti/830ec918781060df03b12efd4a14096e
 import com.cloudbees.plugins.credentials.*
 import com.cloudbees.plugins.credentials.common.*
