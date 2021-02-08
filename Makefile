@@ -1,11 +1,11 @@
 build:
-	@docker-compose -p janus build;
+	@docker-compose build;
 run:
-	@docker-compose -p janus up -d
+	@docker-compose up -d
 stop:
-	@docker-compose -p janus down
+	@docker-compose down
 stop-clean-data:
-	@docker-compose -p janus down -v
+	@docker-compose down -v
 copy-jobs:
 	@docker cp jenkins:/var/jenkins_home/jobs/. ./jenkins/jobs
 update-plugins:

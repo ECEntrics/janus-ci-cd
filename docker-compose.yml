@@ -16,8 +16,8 @@ services:
         max-size: '4m'
         max-file: '10'
     networks:
-      - jenkins_net
-      - concordia_net
+      - janus_network
+      - concordia_network
     ports:
       - "80:80"
       - "443:443"
@@ -43,8 +43,8 @@ services:
         max-size: '4m'
         max-file: '10'
     networks:
-      - jenkins_net
-      - concordia_net
+      - janus_network
+      - concordia_network
     volumes:
       - ./volumes/nginx/conf:/etc/nginx/conf.d
       - ./volumes/nginx/vhost:/etc/nginx/vhost.d
@@ -60,18 +60,21 @@ services:
     build:
       dockerfile: ./Dockerfile
       context: ./jenkins
-    container_name: jenkins
+    image: ecentrics/janus
+    container_name: janus
     restart: always
     user: root
     env_file:
      - ./env/jenkins.env
+    ports:
+    - 8080:8080
     secrets:
       - jenkins_admin_username
       - jenkins_admin_password
       - jenkins_dockerhub_username
       - jenkins_dockerhub_password
     networks:
-      - jenkins_net
+      - janus_network
     volumes:
       - ./volumes/jenkins/log:/var/log/jenkins
       - jenkins-data:/var/jenkins_home
@@ -80,12 +83,12 @@ services:
       - janus-common:/mnt/janus/common
 
 # Networks in use
-# TODO: maybe add/split to separate networks
 networks:
-  jenkins_net:
+  janus_network:
     driver: bridge
-  concordia_net:
+  concordia_network:
     driver: bridge
+
 # Secrets in use
 secrets:
   jenkins_admin_username:
