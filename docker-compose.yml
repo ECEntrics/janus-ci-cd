@@ -77,6 +77,7 @@ services:
       - jenkins-data:/var/jenkins_home
       - ./jenkins/downloads:/var/jenkins_home/downloads
       - /var/run/docker.sock:/var/run/docker.sock
+      - janus-common:/mnt/janus/common
 
 # Networks in use
 # TODO: maybe add/split to separate networks
@@ -97,3 +98,4 @@ secrets:
     file: ./jenkins/secrets/dockerhubPassword
 volumes:
   jenkins-data:
+  janus-common:
