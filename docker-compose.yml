@@ -77,10 +77,10 @@ services:
       - janus_network
     volumes:
       - ./volumes/jenkins/log:/var/log/jenkins
-      - jenkins-data:/var/jenkins_home
+      - jenkins_data:/var/jenkins_home
       - ./jenkins/downloads:/var/jenkins_home/downloads
       - /var/run/docker.sock:/var/run/docker.sock
-      - janus-common:/mnt/janus/common
+      - janus_common:/mnt/janus/common
 
 # Networks in use
 networks:
@@ -100,5 +100,5 @@ secrets:
   jenkins_dockerhub_password:
     file: ./jenkins/secrets/dockerhubPassword
 volumes:
-  jenkins-data:
-  janus-common:
+  jenkins_data:
+  janus_common:

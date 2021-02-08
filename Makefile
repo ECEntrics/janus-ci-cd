@@ -1,11 +1,11 @@
 build:
-	@docker-compose build;
+	@docker-compose -p ecentrics build;
 run:
-	@docker-compose up -d
+	@docker-compose -p ecentrics up -d
 stop:
-	@docker-compose down
+	@docker-compose -p ecentrics down
 stop-clean-data:
-	@docker-compose down -v
+	@docker-compose -p ecentrics down -v
 copy-jobs:
 	@docker cp jenkins:/var/jenkins_home/jobs/. ./jenkins/jobs
 update-plugins:
