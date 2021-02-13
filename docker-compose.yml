@@ -9,6 +9,7 @@ services:
     restart: always
     environment:
       - DEFAULT_HOST=ecentrics.net
+      - ENABLE_IPV6=true
     labels:
         com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
     logging:
@@ -17,9 +18,8 @@ services:
         max-file: '10'
     networks:
       - janus_network
-      - concordia_network
-      - ecentrics_concordia_staging_network
-      - ecentrics_concordia_production_network
+      - concordia_staging_network
+      - concordia_production_network
     ports:
       - "80:80"
       - "443:443"
@@ -46,9 +46,8 @@ services:
         max-file: '10'
     networks:
       - janus_network
-      - concordia_network
-      - ecentrics_concordia_staging_network
-      - ecentrics_concordia_production_network
+      - concordia_staging_network
+      - concordia_production_network
     volumes:
       - ./volumes/nginx/conf:/etc/nginx/conf.d
       - ./volumes/nginx/vhost:/etc/nginx/vhost.d
@@ -90,11 +89,9 @@ services:
 networks:
   janus_network:
     driver: bridge
-  concordia_network:
+  concordia_staging_network:
     driver: bridge
-  ecentrics_concordia_staging_network:
-    driver: bridge
-  ecentrics_concordia_production_network:
+  concordia_production_network:
     driver: bridge
 
 # Secrets in use
