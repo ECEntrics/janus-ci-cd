@@ -38,7 +38,7 @@ under Global Credentials.
 
 Lastly a Webhook must be added to Gitlab, pointing to the Jenkins project. On Gitlab, navigate to the Webhooks menu in
 the Settings of the project and add a new webhook pointing to
-`https://jenkins.concordia.tk/project/staging-concordia-multibranch-pipeline`.
+`https://jenkins.ecentrics.net/project/concordia-multibranch-pipeline`.
 
 To get the git branches and Jenkinsfiles from each branch initiate a `Multibranch Pipeline Scan`.
 
