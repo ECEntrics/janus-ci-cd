@@ -7,10 +7,10 @@ stop:
 stop-clean-data:
 	@docker-compose -p ecentrics down -v
 copy-jobs:
-	@docker cp jenkins:/var/jenkins_home/jobs/. ./jenkins/jobs
+	@docker cp janus:/var/jenkins_home/jobs/. ./jenkins/jobs
 update-plugins:
-	@docker exec -it jenkins ls -1 /var/jenkins_home/plugins/ | grep -v jpi > ./jenkins/plugins.txt
+	@docker exec -it janus ls -1 /var/jenkins_home/plugins/ | grep -v jpi > ./jenkins/plugins.txt
 print-ssh-key:
-	@docker exec -it jenkins cat "/home/jenkins/.ssh/gitlab-ssh.pub"
+	@docker exec -it janus cat "/home/jenkins/.ssh/gitlab-ssh.pub"
 clean-images:
 	@docker rmi `docker images -q -f "dangling=true"`

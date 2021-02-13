@@ -67,7 +67,7 @@ services:
     env_file:
      - ./env/jenkins.env
     ports:
-    - 8080:8080
+      - 8080:8080
     secrets:
       - jenkins_admin_username
       - jenkins_admin_password
