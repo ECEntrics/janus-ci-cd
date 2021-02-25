@@ -32,7 +32,19 @@ services:
       - ./volumes/nginx/certs:/etc/nginx/certs:ro
       - ./nginx-reverse-proxy-confs/client-max-body-size.conf:/etc/nginx/conf.d/client-max-body-size.conf:ro
       - ./nginx-reverse-proxy-confs/redirect.conf:/etc/nginx/conf.d/redirect.conf:ro
+      - ./nginx-reverse-proxy-confs/www.ecentrics.net:/etc/nginx/vhost.d/www.ecentrics.net_location:ro
       - ./nginx-reverse-proxy-confs/www.jenkins.ecentrics.net:/etc/nginx/vhost.d/www.jenkins.ecentrics.net_location:ro
+      - ./nginx-reverse-proxy-confs/www.concordia.ecentrics.net:/etc/nginx/vhost.d/www.concordia.ecentrics.net_location:ro
+      - ./nginx-reverse-proxy-confs/www.staging.concordia.ecentrics.net:/etc/nginx/vhost.d/www.staging.concordia.ecentrics.net_location:ro
+      - ./nginx-reverse-proxy-confs/www.guide.concordia.ecentrics.net:/etc/nginx/vhost.d/www.guide.concordia.ecentrics.net_location:ro
+      - ./nginx-reverse-proxy-confs/www.staging.guide.concordia.ecentrics.net:/etc/nginx/vhost.d/www.staging.guide.concordia.ecentrics.net_location:ro
+      - ./nginx-reverse-proxy-confs/www.ganache.ecentrics.net:/etc/nginx/vhost.d/www.ganache.ecentrics.net_location:ro
+      - ./nginx-reverse-proxy-confs/www.staging.ganache.ecentrics.net:/etc/nginx/vhost.d/www.staging.ganache.ecentrics.net_location:ro
+      - ./nginx-reverse-proxy-confs/www.rendezvous.ecentrics.net:/etc/nginx/vhost.d/www.rendezvous.ecentrics.net_location:ro
+      - ./nginx-reverse-proxy-confs/www.contracts.concordia.ecentrics.net:/etc/nginx/vhost.d/www.contracts.concordia.ecentrics.net_location:ro
+      - ./nginx-reverse-proxy-confs/www.staging.contracts.concordia.ecentrics.net:/etc/nginx/vhost.d/www.staging.contracts.concordia.ecentrics.net_location:ro
+      - ./nginx-reverse-proxy-confs/www.pinner.concordia.ecentrics.net:/etc/nginx/vhost.d/www.pinner.concordia.ecentrics.net_location:ro
+      - ./nginx-reverse-proxy-confs/www.staging.pinner.concordia.ecentrics.net:/etc/nginx/vhost.d/www.staging.pinner.concordia.ecentrics.net_location:ro
 
   # Letsencrypt automated creation, renewal and use of Let's Encrypt certificates
   # Reference:

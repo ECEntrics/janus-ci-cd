@@ -1,0 +1,1 @@
+rewrite ^/(.*)$ http://pinner.concordia.ecentrics.net/$1 permanent;

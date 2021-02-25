@@ -1,0 +1,1 @@
+rewrite ^/(.*)$ http://concordia.ecentrics.net/$1 permanent;
