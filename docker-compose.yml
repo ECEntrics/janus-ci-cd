@@ -30,7 +30,8 @@ services:
       - ./volumes/nginx/html:/usr/share/nginx/html
       - ./volumes/nginx/dhparam:/etc/nginx/dhparam
       - ./volumes/nginx/certs:/etc/nginx/certs:ro
-      - ./client-max-body-size.conf:/etc/nginx/conf.d/client-max-body-size.conf:ro
+      - ./nginx-reverse-proxy-confs/client-max-body-size.conf:/etc/nginx/conf.d/client-max-body-size.conf:ro
+      - ./nginx-reverse-proxy-confs/redirect.conf:/etc/nginx/conf.d/redirect.conf:ro
 
   # Letsencrypt automated creation, renewal and use of Let's Encrypt certificates
   # Reference:
