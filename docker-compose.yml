@@ -31,7 +31,6 @@ services:
       - ./volumes/nginx/dhparam:/etc/nginx/dhparam
       - ./volumes/nginx/certs:/etc/nginx/certs:ro
       - ./nginx-reverse-proxy-confs/client-max-body-size.conf:/etc/nginx/conf.d/client-max-body-size.conf:ro
-      - ./nginx-reverse-proxy-confs/redirect.conf:/etc/nginx/conf.d/redirect.conf:ro
       - ./nginx-reverse-proxy-confs/www.ecentrics.net:/etc/nginx/vhost.d/www.ecentrics.net_location:ro
       - ./nginx-reverse-proxy-confs/www.jenkins.ecentrics.net:/etc/nginx/vhost.d/www.jenkins.ecentrics.net_location:ro
       - ./nginx-reverse-proxy-confs/www.concordia.ecentrics.net:/etc/nginx/vhost.d/www.concordia.ecentrics.net_location:ro
