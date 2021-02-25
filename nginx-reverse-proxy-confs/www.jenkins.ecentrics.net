@@ -1,0 +1,1 @@
+rewrite ^/(.*)$ http://jenkins.ecentrics.net/$1 permanent;

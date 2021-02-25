@@ -32,6 +32,7 @@ services:
       - ./volumes/nginx/certs:/etc/nginx/certs:ro
       - ./nginx-reverse-proxy-confs/client-max-body-size.conf:/etc/nginx/conf.d/client-max-body-size.conf:ro
       - ./nginx-reverse-proxy-confs/redirect.conf:/etc/nginx/conf.d/redirect.conf:ro
+      - ./nginx-reverse-proxy-confs/www.jenkins.ecentrics.net:/etc/nginx/vhost.d/www.jenkins.ecentrics.net_location:ro
 
   # Letsencrypt automated creation, renewal and use of Let's Encrypt certificates
   # Reference:
